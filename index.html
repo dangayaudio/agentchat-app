@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Hỗ trợ IT</title>
+<meta name="description" content="Chat hỗ trợ IT siêu thị">
+<meta name="theme-color" content="#2f6fed">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Hỗ trợ IT">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<!-- Đăng nhập: mã NV + mã kích hoạt IT cấp -->
+<section id="v-login" class="view">
+  <div class="login">
+    <img src="icon-192.png" alt="" class="logo">
+    <h1>Hỗ trợ IT</h1>
+    <p class="muted">Đăng nhập bằng mã nhân viên và mã kích hoạt IT cấp cho anh/chị.</p>
+    <form id="f-login" autocomplete="on">
+      <label>Mã nhân viên<input id="l-code" inputmode="numeric" autocomplete="username" required></label>
+      <label>Mã kích hoạt<input id="l-act" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required></label>
+      <button class="btn pri" type="submit">Đăng nhập</button>
+      <p class="err" id="l-err"></p>
+    </form>
+    <p class="muted small" id="ios-tip" hidden>iPhone: bấm nút Chia sẻ <b>⎙</b> → <b>Thêm vào MH chính</b> để dùng như ứng dụng.</p>
+  </div>
+</section>
+
+<!-- Danh sách phiếu -->
+<section id="v-list" class="view" hidden>
+  <header class="bar">
+    <div class="who"><b>Hỗ trợ IT</b><small id="me"></small></div>
+    <span class="dot" id="dot" title=""></span>
+    <button class="icon" id="b-menu" aria-label="Tùy chọn">⋮</button>
+  </header>
+  <div class="menu" id="menu" hidden><button id="b-logout">Đăng xuất</button></div>
+  <div class="banner" id="banner" hidden></div>
+  <main class="list" id="list"></main>
+  <button class="fab" id="b-new">+ Hỏi IT</button>
+</section>
+
+<!-- Khung chat 1 phiếu -->
+<section id="v-chat" class="view" hidden>
+  <header class="bar">
+    <button class="icon" id="b-back" aria-label="Quay lại">‹</button>
+    <div class="who"><b id="c-title">Phiếu mới</b><small id="c-sub"></small></div>
+    <span class="dot" id="dot2"></span>
+  </header>
+  <main class="msgs" id="msgs"></main>
+  <div class="typing" id="typing" hidden><span></span><span></span><span></span> Bot đang xử lý…</div>
+  <div class="thumbs" id="thumbs"></div>
+  <form class="composer" id="f-send">
+    <label class="icon attach" title="Gửi hình" aria-label="Gửi hình">📷<input type="file" id="file" accept="image/*" multiple hidden></label>
+    <textarea id="text" rows="1" placeholder="Nhập nội dung cần hỗ trợ…"></textarea>
+    <button class="icon send" id="b-send" type="submit" aria-label="Gửi">➤</button>
+  </form>
+</section>
+
+<div class="viewer" id="viewer" hidden><img alt=""></div>
+<div class="toast" id="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
