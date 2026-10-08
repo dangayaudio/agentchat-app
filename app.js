@@ -241,7 +241,16 @@ function renderThumbs() {
   });
 }
 const ta = $("#text");
-ta.addEventListener("input", () => { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 140) + "px"; });
+let typingAt = 0;
+ta.addEventListener("input", () => {
+  ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 140) + "px";
+  // 0.6.0: báo máy chủ đang soạn (tối đa 2 giây/lần) → bot đợi đủ tin rồi mới xử lý (nhắn ngắn, gửi liên tục)
+  const now = Date.now();
+  if (sid && !FINAL.includes(sessionStatus) && ta.value.trim() && now - typingAt > 2000) {
+    typingAt = now;
+    api("/api/v1/typing", { json: { session_id: sid } }, false).catch(() => { /* không quan trọng */ });
+  }
+});
 $("#f-send").addEventListener("submit", async (e) => {
   e.preventDefault();
   const text = ta.value.trim();
