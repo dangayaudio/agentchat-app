@@ -1,5 +1,6 @@
 /* AgentChat – app điện thoại (PWA, không cần build). Chạy ở 2 nơi:
-   - GitHub Pages (link cố định): địa chỉ máy chủ = link đường hầm tạm đọc từ link.json (đổi mỗi lần máy IT mở chat);
+   - GitHub Pages (link cố định): địa chỉ máy chủ = link đường hầm đọc từ link.json (Dev Tunnels: cố định;
+     cloudflared: đổi mỗi lần máy IT mở chat);
    - chính máy chủ chat (http://127.0.0.1:8770/): gọi cùng nguồn.
    Đăng nhập mã NV + mã kích hoạt → token lưu trên máy (localStorage). */
 "use strict";
@@ -42,6 +43,7 @@ async function api(path, opt = {}, retry = true) {
   const b = await resolveBase(false);
   const headers = {};
   if (token) headers.Authorization = "Bearer " + token;
+  if (/\.devtunnels\.ms$/.test(new URL(b).hostname)) headers["X-Tunnel-Skip-AntiPhishing-Page"] = "true";
   let body;
   if (opt.json !== undefined) { headers["Content-Type"] = "application/json"; body = JSON.stringify(opt.json); }
   let r;
