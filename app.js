@@ -10,6 +10,9 @@ const store = {
   set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (_) { /* chế độ riêng tư */ } },
 };
 const FINAL = ["closed", "transferred"];
+// câu chào cố định (máy chủ gửi kèm /api/v1/status – đổi ở máy chủ thì app theo); hiện ngay khi mở chat mới
+let greeting = "Chào anh/chị, em là Trợ lý chat bot IT\nEm trả lời thắc mắc và giúp anh/chị xử lý nhanh các vấn đề về IT\n\n" +
+  "* Khi cần hỗ trợ thiết bị tại ST, anh/chị thông tin thiết bị cần xử lý kèm mã kho để em chuyển ITKV xử lý nhanh cho anh/chị";
 let base = null;
 let token = store.get("at_token");
 let me = null;
@@ -111,6 +114,7 @@ async function checkStatus() {
   clearTimeout(statusTimer);
   try {
     const s = await api("/api/v1/status");
+    if (s.greeting) greeting = s.greeting;
     const paused = s.paused_until && s.paused_until * 1000 > Date.now();
     setConn(!s.online ? "off" : paused ? "busy" : "on", !s.online ? "Bot chưa sẵn sàng" : paused ? "Bot tạm nghỉ" : "Bot đang hoạt động");
     const b = $("#banner");
@@ -149,7 +153,8 @@ $("#b-back").onclick = () => openList();
 /* ---------- chat ---------- */
 function openChat(id) {
   sid = id; lastId = 0; sessionStatus = "open";
-  $("#msgs").innerHTML = id ? "" : '<div class="note">Mô tả vấn đề cần hỗ trợ (kèm hình lỗi nếu có). Bot IT sẽ trả lời ngay.</div>';
+  $("#msgs").innerHTML = "";
+  if (!id) $("#msgs").appendChild(renderMessage({ role: "bot", text: greeting, created: new Date().toISOString() }));
   $("#c-title").textContent = id || "Phiếu mới";
   $("#c-sub").textContent = id ? "" : "Gửi tin đầu tiên để tạo phiếu";
   $("#typing").hidden = true;
