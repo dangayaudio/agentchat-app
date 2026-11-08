@@ -87,6 +87,13 @@ input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 
   background: var(--panel); border-top: 1px solid var(--line); flex: none; }
 .composer textarea { resize: none; max-height: 140px; border-radius: 20px; padding: 10px 14px; }
 .composer .send { color: var(--accent); }
+/* 0.7.3: khung đổi mã kích hoạt */
+.sheet { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center;
+  padding: 16px; z-index: 9; }
+.sheet .card { background: var(--panel); color: var(--fg); border-radius: 16px; padding: 20px 16px; width: 100%; max-width: 380px;
+  display: grid; gap: 12px; }
+.sheet label { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
+.sheet .row { display: flex; gap: 8px; justify-content: flex-end; }
 .viewer { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center; z-index: 10; }
 .viewer img { max-width: 100%; max-height: 100%; }
 .toast { position: fixed; left: 50%; bottom: calc(90px + var(--safe-b)); transform: translateX(-50%); background: var(--fg); color: var(--bg);
