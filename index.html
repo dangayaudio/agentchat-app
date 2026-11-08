@@ -24,7 +24,7 @@
     <p class="muted">Đăng nhập bằng mã nhân viên và mã kích hoạt IT cấp cho anh/chị.</p>
     <form id="f-login" autocomplete="on">
       <label>Mã nhân viên<input id="l-code" inputmode="numeric" autocomplete="username" required></label>
-      <label>Mã kích hoạt<input id="l-act" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required></label>
+      <label>Mã kích hoạt<input id="l-act" autocomplete="current-password" maxlength="32" autocapitalize="off" spellcheck="false" required></label>
       <button class="btn pri" type="submit">Đăng nhập</button>
       <p class="err" id="l-err"></p>
     </form>
