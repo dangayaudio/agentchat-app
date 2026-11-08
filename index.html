@@ -39,7 +39,7 @@
     <span class="dot" id="dot" title=""></span>
     <button class="icon" id="b-menu" aria-label="Tùy chọn">⋮</button>
   </header>
-  <div class="menu" id="menu" hidden><button id="b-logout">Đăng xuất</button></div>
+  <div class="menu" id="menu" hidden><button id="b-act">Đổi mã kích hoạt</button><button id="b-logout">Đăng xuất</button></div>
   <div class="banner" id="banner" hidden></div>
   <main class="list" id="list"></main>
   <button class="fab" id="b-new">+ Hỏi IT</button>
@@ -62,6 +62,17 @@
   </form>
 </section>
 
+<!-- 0.7.3: người dùng tự đổi mã kích hoạt -->
+<div class="sheet" id="pw" hidden>
+  <form class="card" id="f-pw" autocomplete="off">
+    <b>Đổi mã kích hoạt</b>
+    <label>Mã hiện tại<input type="password" id="pw-old" maxlength="32" autocomplete="current-password" required></label>
+    <label>Mã mới (4–32 ký tự)<input type="password" id="pw-new" maxlength="32" autocomplete="new-password" required></label>
+    <label>Nhập lại mã mới<input type="password" id="pw-new2" maxlength="32" autocomplete="new-password" required></label>
+    <p class="err" id="pw-err"></p>
+    <div class="row"><button class="btn" type="button" id="pw-cancel">Hủy</button><button class="btn pri" type="submit">Lưu</button></div>
+  </form>
+</div>
 <div class="viewer" id="viewer" hidden><img alt=""></div>
 <div class="toast" id="toast" hidden></div>
 <script src="app.js"></script>
