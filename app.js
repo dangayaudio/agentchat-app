@@ -107,6 +107,23 @@ function logout() {
   $("#menu").hidden = true; show("login");
 }
 $("#b-logout").onclick = logout;
+/* 0.7.3: tự đổi mã kích hoạt (cần mã hiện tại; máy này vẫn giữ đăng nhập) */
+function closePw() { $("#pw").hidden = true; $("#f-pw").reset(); $("#pw-err").textContent = ""; }
+$("#b-act").onclick = () => { $("#menu").hidden = true; closePw(); $("#pw").hidden = false; $("#pw-old").focus(); };
+$("#pw-cancel").onclick = closePw;
+$("#f-pw").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const old = $("#pw-old").value.trim(), neu = $("#pw-new").value.trim();
+  if (neu !== $("#pw-new2").value.trim()) { $("#pw-err").textContent = "Hai lần nhập mã mới không giống nhau"; return; }
+  if (neu.length < 4 || /\s/.test(neu)) { $("#pw-err").textContent = "Mã mới 4–32 ký tự, không có khoảng trắng"; return; }
+  const btn = e.submitter || $("#f-pw button[type=submit]");
+  btn.disabled = true; $("#pw-err").textContent = "";
+  try {
+    await api("/api/v1/activation", { json: { old, new: neu } });
+    closePw(); toast("Đã đổi mã kích hoạt – lần đăng nhập sau dùng mã mới");
+  } catch (err) { $("#pw-err").textContent = err.message; }
+  btn.disabled = false;
+});
 $("#b-menu").onclick = () => ($("#menu").hidden = !$("#menu").hidden);
 
 /* ---------- trạng thái bot ---------- */
