@@ -109,6 +109,7 @@ function logout() {
 $("#b-logout").onclick = logout;
 /* 0.7.3: tự đổi mã kích hoạt (cần mã hiện tại; máy này vẫn giữ đăng nhập) */
 function closePw() { $("#pw").hidden = true; $("#f-pw").reset(); $("#pw-err").textContent = ""; }
+if ($("#b-act") && $("#f-pw")) {     // 0.7.4: index.html cũ (chưa có khung đổi mã) vẫn chạy được phần còn lại của app
 $("#b-act").onclick = () => { $("#menu").hidden = true; closePw(); $("#pw").hidden = false; $("#pw-old").focus(); };
 $("#pw-cancel").onclick = closePw;
 $("#f-pw").addEventListener("submit", async (e) => {
@@ -124,6 +125,7 @@ $("#f-pw").addEventListener("submit", async (e) => {
   } catch (err) { $("#pw-err").textContent = err.message; }
   btn.disabled = false;
 });
+}
 $("#b-menu").onclick = () => ($("#menu").hidden = !$("#menu").hidden);
 
 /* ---------- trạng thái bot ---------- */
